@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Assistant</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition-all duration-300">
+
+    <div class="min-h-screen flex flex-col">
+        <header class="p-4 shadow-md flex justify-between items-center bg-white dark:bg-gray-800">
+            <h1 class="text-2xl font-bold">💬 Smart Assistant</h1>
+            <button id="themeToggle" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded">
+                Toggle Theme
+            </button>
+        </header>
+
+        <main class="flex-grow">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="p-4 text-center text-sm text-gray-500 dark:text-gray-400">
+            © 2025 Smart Assistant. All rights reserved.
+        </footer>
+    </div>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>
