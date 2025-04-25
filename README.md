@@ -1,6 +1,6 @@
 # 🧠 Smart Conversational Assistant with Memory
 
-A Django + Django REST Framework-based AI chatbot that integrates HuggingFace models to hold memory-aware conversations. Frontend is designed to impress. Built for student projects.
+A Django + Django REST Framework-based AI chatbot that integrates HuggingFace models to hold memory-aware conversations. Frontend is designed to impress.
 
 ---
 
