@@ -7,7 +7,7 @@ A Django + Django REST Framework-based AI chatbot that integrates HuggingFace mo
 ## 📦 Project Stack
 
 - **Backend**: Django, Django REST Framework
-- **Frontend**: HTML/CSS + Tailwind (or Gradio/React optional)
+- **Frontend**: HTML/CSS + Bootstrap (or Gradio/React optional)
 - **AI Model**: HuggingFace Transformers (e.g., DialoGPT, Falcon)
 - **Database**: PostgreSQL (recommended for Render)
 - **Deployment**: Render.com

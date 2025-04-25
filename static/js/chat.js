@@ -30,9 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function addMessage(sender, text) {
         const messageEl = document.createElement("div");
-        messageEl.className = `my-2 p-3 rounded-lg max-w-xl ${
-            sender === "user" ? "bg-blue-200 self-end" : "bg-gray-300 dark:bg-gray-700 self-start"
-        }`;
+        messageEl.className = `my-2 p-3 rounded-3 ${sender === "user" ? "bg-primary text-white ms-auto" : "bg-light text-dark"}`;
         messageEl.innerText = text;
         chatWindow.appendChild(messageEl);
         chatWindow.scrollTop = chatWindow.scrollHeight;
@@ -41,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function addTypingIndicator() {
         const typing = document.createElement("div");
         typing.id = "typingIndicator";
-        typing.className = "my-2 p-3 bg-gray-300 dark:bg-gray-700 rounded-lg animate-pulse max-w-xs";
+        typing.className = "my-2 p-3 bg-light text-dark rounded-3 animate-pulse";
         typing.innerText = "Typing...";
         chatWindow.appendChild(typing);
         chatWindow.scrollTop = chatWindow.scrollHeight;
