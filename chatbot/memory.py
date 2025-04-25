@@ -1,13 +1,19 @@
-from .models import Session
+from .models import Message, Session
 
+def get_or_create_session(session_id=None):
+    if session_id:
+        session = Session.objects.filter(id=session_id).first()
+        if session:
+            return session
+    return Session.objects.create()
 
-class MemoryHandler:
-    @staticmethod
-    def get_or_create_session(user_id):
-        session, created = Session.objects.get_or_create(user_id=user_id)
-        return session
+def build_prompt(session):
+    messages = Message.objects.filter(session=session).order_by("timestamp")
+    prompt = ""
+    for msg in messages:
+        role = "User" if msg.is_user else "Bot"
+        prompt += f"{role}: {msg.content}\n"
+    return prompt.strip()
 
-    @staticmethod
-    def update_memory(memory, user_message, bot_response):
-        memory["history"].append({"user": user_message, "bot": bot_response})
-        return memory
+def save_message(session, content, is_user=True):
+    return Message.objects.create(session=session, content=content, is_user=is_user)

@@ -1,26 +1,19 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
-from .models import Session, Message
-from .memory import MemoryHandler
-from transformers_model.model import ModelProcessor
-
+from transformers_model.model import generate_response
+from .memory import get_or_create_session, build_prompt, save_message
 
 class ChatAPIView(APIView):
     def post(self, request):
-        message = request.data.get("message")
-        user_id = request.data.get("user_id")
+        user_msg = request.data.get("message", "")
+        session_id = request.session.get("chat_session_id")
 
-        # Memory handler to check session
-        session = MemoryHandler.get_or_create_session(user_id)
+        session = get_or_create_session(session_id)
+        request.session["chat_session_id"] = str(session.id)
 
-        # AI model processing
-        response = ModelProcessor.generate_response(message)
+        save_message(session, user_msg, is_user=True)
+        prompt = build_prompt(session)
+        bot_reply = generate_response(prompt)
 
-        # Store message and session memory
-        Message.objects.create(session=session, sender="user", message=message)
-        Message.objects.create(session=session, sender="bot", message=response)
-        session.memory = MemoryHandler.update_memory(session.memory, message, response)
-        session.save()
-
-        return Response({"response": response}, status=status.HTTP_200_OK)
+        save_message(session, bot_reply, is_user=False)
+        return Response({"response": bot_reply})
