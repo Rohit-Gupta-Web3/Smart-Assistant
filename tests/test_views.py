@@ -5,7 +5,7 @@ from chatbot.models import Session
 
 class ChatAPIViewTest(APITestCase):
     def test_chat_view(self):
-        session = Session.objects.create(user_id="test_user")
+        Session.objects.create(user_id="test_user")
         response = self.client.post(
             "/api/chat/", {"message": "Hi", "user_id": "test_user"}
         )

@@ -1,31 +1,39 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer
-import torch
 import os
+import requests
+from dotenv import load_dotenv
 
-# Load model + tokenizer once
-model_name = os.getenv("HUGGINGFACE_MODEL")
-if not model_name:
-    raise ValueError("HUGGINGFACE_MODEL not found in .env file")
+# Load environment variables
+load_dotenv()
 
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForCausalLM.from_pretrained(model_name)
+# Huggingface Model Endpoint and Token
+model_endpoint = os.getenv("HUGGINGFACE_URL")
+api_token = os.getenv("HUGGINGFACE_API_TOKEN")
 
-# GPU if available
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = model.to(device)
+if not model_endpoint or not api_token:
+    raise ValueError("Missing HUGGINGFACE_URL or HUGGINGFACE_API_TOKEN in .env file")
+
+headers = {
+    "Authorization": f"Bearer {api_token}",
+    "Content-Type": "application/json",
+}
 
 
-def generate_response(prompt, max_length=1000):
-    inputs = tokenizer(prompt, return_tensors="pt").to(device)
-    output = model.generate(
-        **inputs,
-        max_length=max_length,
-        pad_token_id=tokenizer.eos_token_id,
-        do_sample=True,
-        top_p=0.92,
-        temperature=0.75,
-    )
-    response = tokenizer.decode(
-        output[:, inputs["input_ids"].shape[-1] :][0], skip_special_tokens=True
-    )
-    return response.strip()
+def generate_response(prompt, max_tokens=512):
+    payload = {
+        "messages": [{"role": "user", "content": prompt}],
+        "max_tokens": max_tokens,
+        "model": "mistralai/Mistral-7B-Instruct-v0.3",
+        "stream": False,  # 🚀 NORMAL, non-streaming
+    }
+
+    response = requests.post(model_endpoint, headers=headers, json=payload)
+
+    if response.status_code != 200:
+        raise Exception(f"Request failed: {response.status_code}, {response.text}")
+
+    data = response.json()
+
+    try:
+        return data["choices"][0]["message"]["content"].strip()
+    except (KeyError, IndexError) as e:
+        raise Exception(f"Unexpected response format: {data}") from e

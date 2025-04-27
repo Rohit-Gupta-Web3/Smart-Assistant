@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "chatbot",
+    "transformers_model",
 ]
 
 MIDDLEWARE = [
@@ -64,3 +65,4 @@ DATABASES = {
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
