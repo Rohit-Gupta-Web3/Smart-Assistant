@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("SECRET_KEY", "your-default-key")
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["smart-assistant-czy2.onrender.com"]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
