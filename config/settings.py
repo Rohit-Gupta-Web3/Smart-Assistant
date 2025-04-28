@@ -55,10 +55,10 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "postgres",
-        "USER": "postgres",
-        "PASSWORD": "smartassistant",
-        "HOST": "localhost",
+        "NAME": "smart_assistant",
+        "USER": "smart_assistant_user",
+        "PASSWORD": "ZVKhrdkx5e50Xc1UKwbB1HWJQhhP0M3G",
+        "HOST": "dpg-d07jobqli9vc73fc1h7g-a",
         "PORT": "5432",
     }
 }
