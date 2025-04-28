@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import mimetypes
 
 load_dotenv()
 
@@ -62,8 +63,12 @@ DATABASES = {
         "PORT": "5432",
     }
 }
+mimetypes.add_type("application/javascript", ".js", True)
+mimetypes.add_type("text/css", ".css", True)
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = ["/opt/render/project/src/static"]
+STATICFILES_DIRS = [BASE_DIR / "static"]
 #STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_ROOT = "/opt/render/project/src/staticfiles"
