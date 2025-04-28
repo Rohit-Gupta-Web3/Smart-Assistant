@@ -6,8 +6,8 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv("SECRET_KEY", "your-default-key")
-DEBUG = True
+SECRET_KEY = os.getenv("SECRET_KEY")
+DEBUG = False
 ALLOWED_HOSTS = ["smart-assistant-czy2.onrender.com"]
 
 INSTALLED_APPS = [
