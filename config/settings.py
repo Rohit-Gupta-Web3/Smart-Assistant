@@ -64,6 +64,6 @@ DATABASES = {
 }
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = ["/opt/render/project/src/staticfiles"]
+STATICFILES_DIRS = ["/opt/render/project/src/static"]
 #STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_ROOT = "/opt/render/project/src/staticfiles"
