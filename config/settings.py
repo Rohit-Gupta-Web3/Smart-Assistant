@@ -8,8 +8,12 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("SECRET_KEY")
-DEBUG = False
-ALLOWED_HOSTS = ["smart-assistant-czy2.onrender.com"]
+DEBUG = os.getenv("DEBUG")
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS")
+mimetypes.add_type("application/javascript", ".js", True)
+mimetypes.add_type("text/css", ".css", True)
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -25,7 +29,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -56,23 +60,16 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "smart_assistant",
-        "USER": "smart_assistant_user",
-        "PASSWORD": "ZVKhrdkx5e50Xc1UKwbB1HWJQhhP0M3G",
-        "HOST": "dpg-d07jobqli9vc73fc1h7g-a",
-        "PORT": "5432",
+        "ENGINE": os.getenv("ENGINE"),
+        "NAME": os.getenv("NAME"),
+        "USER": os.getenv("USER"),
+        "PASSWORD": os.getenv("PASSWORD"),
+        "HOST": os.getenv("HOST"),
+        "PORT": os.getenv("PORT"),
     }
 }
-mimetypes.add_type("application/javascript", ".js", True)
-mimetypes.add_type("text/css", ".css", True)
-
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-#STATIC_ROOT = BASE_DIR / "staticfiles"  # Where collectstatic will put all files
-
-# WhiteNoise config (optional but recommended)
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
