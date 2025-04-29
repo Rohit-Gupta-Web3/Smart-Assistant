@@ -58,16 +58,28 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-DATABASES = {
-    "default": {
-        "ENGINE": os.getenv("ENGINE"),
-        "NAME": os.getenv("NAME"),
-        "USER": os.getenv("USER"),
-        "PASSWORD": os.getenv("PASSWORD"),
-        "HOST": os.getenv("HOST"),
-        "PORT": os.getenv("PORT"),
+if DEBUG:
+    DATABASES = {
+        "default": {
+            "ENGINE": os.getenv("ENGINE"),
+            "NAME": os.getenv("NAME"),
+            "USER": os.getenv("USER"),
+            "PASSWORD": os.getenv("PASSWORD"),
+            "HOST": os.getenv("HOST"),
+            "PORT": os.getenv("PORT"),
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": os.getenv("ENGINE"),
+            "NAME": os.getenv("RNAME"),
+            "USER": os.getenv("RUSER"),
+            "PASSWORD": os.getenv("RPASSWORD"),
+            "HOST": os.getenv("RHOST"),
+            "PORT": os.getenv("PORT"),
+        }
+    }
 
 STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
