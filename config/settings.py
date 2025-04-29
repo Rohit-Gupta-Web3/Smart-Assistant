@@ -58,7 +58,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-if DEBUG is True:
+if DEBUG:
     DATABASES = {
         "default": {
             "ENGINE": os.getenv("ENGINE"),
